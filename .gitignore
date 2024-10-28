@@ -1,0 +1,38 @@
+# Python-specific ignores
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+*.venv
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+*.env
+
+# PyCharm IDE files
+.idea/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore API keys and config files
+config.py
+.env
+*.json
+
+# Ignore cache and temporary files
+*.log
+*.sqlite3
+*.csv
+*.DS_Store
+*.bak
