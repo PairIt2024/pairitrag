@@ -17,7 +17,7 @@ def query_class(input):
          #Embed the input text
         response = embed_input(input)
         
-        results = index.query(vector=[response], top_k=3, include_metadata=True)
+        results = index.query(vector=[response], top_k=10, include_metadata=True)
 
         if results['matches'][0]['score'] > 0.4:
             return pass_pinecone_results_to_openai(input, results)
@@ -58,14 +58,14 @@ if __name__ == "__main__":
     #extracted_input = extract_input(query)
     query_class(query)
     query_class("Computer Science 46A at 1:30pm")
-    query_class("section 3")
-    query_class("engineering reports with Murphey-Wesley")
-    query_class("math 161A")
-    query_class("CS 146 on tuesday thursday at 6:00pm with Rangasayee")
-    query_class("I have class at 3:00pm on Monday and Wednesday")
-    query_class("cmpe 120 at 4:30pm")
-    query_class("I am in Abri’s section 06 class")
-    query_class("I am in section 11 of Physics 50")
+    #query_class("section 3")
+    #query_class("engineering reports with Murphey-Wesley")
+    #query_class("math 161A")
+    #query_class("CS 146 on tuesday thursday at 6:00pm with Rangasayee")
+    #query_class("I have class at 3:00pm on Monday and Wednesday")
+    #query_class("cmpe 120 at 4:30pm")
+    #query_class("I am in Abri’s section 06 class")
+   # query_class("I am in section 11 of Physics 50")
 
 
     #query_class("CS 157A")

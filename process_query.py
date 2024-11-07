@@ -36,16 +36,21 @@ def pass_pinecone_results_to_openai(original_query, pinecone_results):
         result_string += f"{i+1}. ID: {match['id']}, Course: {metadata['course_title']}, Instructor: {metadata['instructor']}, Section: {metadata.get('section_number', 'N/A')}, Score: {match['score']}\n"    
     # Pass this to OpenAI for further refinement
     print(result_string)
-    prompt = f"Original query: '{original_query}'\nHere are some possible course matches:\n{result_string}\nWhich course is the most relevant?"
-    
+    prompt = (
+        f"Original query: '{original_query}'\n\n"
+        f"Based on the user's query, here are some possible course matches from Pinecone:\n{result_string}\n\n"
+        "Your task is to rank these courses in order of relevance to the original query. Consider details such as the course title, "
+        "instructor, section number, and any other relevant information. Output a ranked list of the top 10 matches, focus on the split between Section and courses example, CS46A is different than CS46B"
+        "and provide the reasoning for each selection based on the query. The output should be the list of IDs of the most relevant courses."
+    )    
     # Call OpenAI's ChatCompletion endpoint to analyze the results and pick the most relevant
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are an assistant that matches the user's query with the most relevant course based on the provided options. Do not provide new course options. Return the ID of the most relevant course."},
+            {"role": "system", "content": "You are an assistant that matches the user's query with the most relevant course based on the provided options. Do not provide new course options. Return only a list of top 10 IDs of the most relevant course."},
             {"role": "user", "content": prompt}
         ],
-        max_tokens=150
+        max_tokens=300
     )
 
     # Extract the relevant response from OpenAI
